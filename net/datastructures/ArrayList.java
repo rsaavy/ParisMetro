@@ -36,7 +36,7 @@ import java.util.NoSuchElementException;
 public class ArrayList<E> implements List<E> {
   // instance variables
   /** Default array capacity. */
-  public static final int CAPACITY=16;     // default array capacity
+  public static final int CAPACITY=375;     // default array capacity
 
   /** Generic array used for storage of list elements. */
   private E[] data;                        // generic array used for storage

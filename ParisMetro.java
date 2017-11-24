@@ -10,6 +10,8 @@ import net.datastructures.GraphAlgorithms;
 import net.datastructures.Map;
 import net.datastructures.Vertex;
 import net.datastructures.Entry;
+import net.datastructures.ArrayList;
+
 
 
 import java.io.InputStreamReader;
@@ -19,19 +21,21 @@ import java.util.Iterator;
 
 public class ParisMetro {
 	Graph<String, Integer> parisMetroGraph;
+	AdjacencyMapGraph parisMetroGraph = new AdjacencyMapGraph<ArrayList<ArrayList<Edge>>>(false);
 
 	Object DISTANCE = new Object();
+
+
+
 
 	/**
 	 * Create a WeightGraph from file
 	 * Modified by Thais Bardini on November 19th, 2017 (tbard069@uottawa.ca)
 	 */
+	 /*
 	public ParisGraph(String fileName) throws Exception, IOException {
-    parisDistanceGraph = new AdjacencyMapGraph<Integer,Integer>(false);
-    parisMetroGraph = new AdjacencyMapGraph<String, Integer>(false);
-		read(fileName);
 	}
-
+*/
 	/**
 	 * Read a list of vertex from file
 	 *
@@ -45,31 +49,31 @@ public class ParisMetro {
     String line;
 
     while ((line = graphFile.readLine()) != null) {
-      StringTokenizer st = new StringTokenizer(line);
-			if (st.countTokens() != 3)
+			String flag = "$";
+
+			StringTokenizer st = new StringTokenizer(line);
+
+			if (st.countTokens() != 3){
 		 	 throw new IOException("This is an incorrect input for the line: " + line);
+		 }
 			if( st.countTokens() == 2){
 				StringTokenizer st = new StringTokenizer(line);
 				Integer id = new Integer(st.nextToken());
-				String metroName = st.nextToken()
+				String metroName = st.nextToken();
 				Vertex<Integer>  metroid = vertices.get(id);
-				Vertex<String>  nameid  = vertices.get(metroName		);
-			}
-/* We will change the type of tokenizer reading lines */
-			if(/*st.nextToken() = "$" && */st.countTokens() = 1){
+				Vertex<String>  nameid  = vertices.get(metroName);
+				}
+			if(flag == st.nextToken()){
 				StringTokenizer dt = new StringTokenizer(line);
 				Integer startid= new Integer(dt.nextToken());
 				Integer endid = new Integer (dt.nextToken());
 				Integer distance = new Integer(st.nextToken());
-
 				Vertex<String> distance = vertices.get(startid);
 			}
-
       if (metroid == null) {
         // Source vertex not in graph -- insert
         metroid = sGraph.insertVertex(id);
-        vertices.put(id, metroid);
+        vertices.put(id, metroid);}
+			}
 }
-
-			if (graphFile.getEdge(metroid,id))
-      }
+}
