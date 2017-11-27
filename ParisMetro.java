@@ -21,59 +21,77 @@ import java.util.Iterator;
 
 public class ParisMetro {
 	Graph<String, Integer> parisMetroGraph;
-	AdjacencyMapGraph parisMetroGraph = new AdjacencyMapGraph<ArrayList<ArrayList<Edge>>>(false);
+	ArrayList<Integer,String> stations = new ArrayList<Integer,String>;
+	ArrayList<Integer,ArrayList<Edge> > distances = new ArrayList<Integer,- List<Edge>>;
+			
+			
 
-	Object DISTANCE = new Object();
 
-
-
-
-	/**
-	 * Create a WeightGraph from file
-	 * Modified by Thais Bardini on November 19th, 2017 (tbard069@uottawa.ca)
-	 */
-	 /*
-	public ParisGraph(String fileName) throws Exception, IOException {
-	}
-*/
-	/**
-	 * Read a list of vertex from file
-	 *
-	 */
-	protected void read(String fileName) throws Exception, IOException {
+	protected static void read(String fileName) throws Exception, IOException {
+		
 		BufferedReader graphFile = new BufferedReader(new FileReader(fileName));
+		String flag = "$";		
+		if((line = graphFile.readLine()) != null){
+				// 	 	 throw new IOException("This is an incorrect input for the line: " + line);
 
-    Hashtable<String, Vertex> vertices = new Hashtable<String, Vertex>();
+		}
 
-    // Read the edges and insert
-    String line;
+		/* This is the first line that we need to read.  */
+		String lines =  graphFile.readLine();
+		String [] lineSeperator = lines.split(" ");
+		int totalVertices = Integer.parseInt(lineSeperator[0]);
+		int totalEdges = Integer.parseInt(lineSeperator[1] );
 
-    while ((line = graphFile.readLine()) != null) {
-			String flag = "$";
 
-			StringTokenizer st = new StringTokenizer(line);
+		/* This is the second line we have to read  */
 
-			if (st.countTokens() != 3){
-		 	 throw new IOException("This is an incorrect input for the line: " + line);
-		 }
-			if( st.countTokens() == 2){
-				StringTokenizer st = new StringTokenizer(line);
-				Integer id = new Integer(st.nextToken());
-				String metroName = st.nextToken();
-				Vertex<Integer>  metroid = vertices.get(id);
-				Vertex<String>  nameid  = vertices.get(metroName);
-				}
-			if(flag == st.nextToken()){
-				StringTokenizer dt = new StringTokenizer(line);
-				Integer startid= new Integer(dt.nextToken());
-				Integer endid = new Integer (dt.nextToken());
-				Integer distance = new Integer(st.nextToken());
-				Vertex<String> distance = vertices.get(startid);
+		 for(int i = 1; i< totalVertices &&; i++){
+		String lines = graphFile.readLine();
+		String [] lineSeperator = lines.split(" ", 2);
+
+		int metroID = Integer.parseInt(lineSeperator[0]);
+		String stationName = lineSeperator[1];
+		}	
+		if( lineSeperator[0] = flag)
+		{
+			for(int  i = 0;i< totalEdges; i++){
+				String lines = graphFile.readLine(); 
+				String [] lineSeperator = lines.split(" ", 3);
+
 			}
-      if (metroid == null) {
-        // Source vertex not in graph -- insert
-        metroid = sGraph.insertVertex(id);
-        vertices.put(id, metroid);}
-			}
-}
-}
+		}
+		}
+
+		
+
+    // while ((line = graphFile.readLine()) != null) {
+	// 		String flag = "$";
+
+
+
+	// 		if (st.countTokens() != 3 	){
+	// 	 	 throw new IOException("This is an incorrect input for the line: " + line);
+	// 	 }
+	// 		if( st.countTokens() == 2){
+	// 			StringTokenizer st = new StringTokenizer(line);
+	// 			Integer id = new Integer(st.nextToken());
+	// 			String metroName = st.nextToken();
+	// 			Vertex<Integer>  metroid = stations.get(id);
+	// 			Vertex<String>  nameid  = stations.get(metroName);
+	// 			}
+	// 		if(flag == st.nextToken()){
+	// 			StringTokenizer dt = new StringTokenizer(line);
+	// 			Integer startid= new Integer(dt.nextToken());
+	// 			Integer endid = new Integer (dt.nextToken());
+	// 			Integer distance = new Integer(st.nextToken());
+	// 			Vertex<String> distance = vertices.get(startid);
+	// 		}
+    //   if (metroid == null) {
+    //     // Source vertex not in graph -- insert
+    //     metroid = sGraph.insertVertex(id);
+    //     vertices.put(id, metroid);}
+	// 		}
+
+
+
+}}}
