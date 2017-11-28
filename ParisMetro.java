@@ -12,86 +12,66 @@ import net.datastructures.Vertex;
 import net.datastructures.Entry;
 import net.datastructures.ArrayList;
 
-
-
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Iterator;
 
 public class ParisMetro {
-	Graph<String, Integer> parisMetroGraph;
-	ArrayList<Integer,String> stations = new ArrayList<Integer,String>;
-	ArrayList<Integer,ArrayList<Edge> > distances = new ArrayList<Integer,- List<Edge>>;
-			
-			
+	Graph<stations, Integer> parisMetroGraph;
 
+	public ParisGraph(String fileName) throws Exception, IOException {
+		
+		read(fileName);
+		parisMetroGraph = new Graph(stations,Integer);
+	}
 
-	protected static void read(String fileName) throws Exception, IOException {
+	public static void read(String fileName) throws Exception, IOException {
+	
 		
 		BufferedReader graphFile = new BufferedReader(new FileReader(fileName));
 		String flag = "$";		
+		
+	ArrayList<String> stations = new ArrayList(String);
+	ArrayList<Integer,Integer> distances = new ArrayList(Integer,Integer);
+
 		if((line = graphFile.readLine()) != null){
 			throw new IOException("This is an incorrect input for the line: " + line);
 
 		}
 
 		/* This is the first line that we need to read.  */
-		String lines =  graphFile.readLine();
-		String [] lineSeperator = lines.split(" ");
-		int totalVertices = Integer.parseInt(lineSeperator[0]);
-		int totalEdges = Integer.parseInt(lineSeperator[1] );
+		String line =  graphFile.readLine();
+		String [] lines = line.split(" ");
+		int totalVertices = Integer.parseInt(lines[0]);
+		int totalEdges = Integer.parseInt(lines[1] );
 
 
 		/* This is the second line we have to read  */
 
-		 for(int i = 1; i< totalVertices &&; i++){
-		String lines = graphFile.readLine();
-		String [] lineSeperator = lines.split(" ", 2);
+		 for(int i = 1; i< totalVertices; i++){
+			int metroID = Integer.parseInt(lines[0]);
+			String stationName = lines[1];
 
-		int metroID = Integer.parseInt(lineSeperator[0]);
-		String stationName = lineSeperator[1];
+			stations.add(i,stationName);
 		}	
+		line = graphFile.readLine();
 		if( lineSeperator[0] = flag)
 		{
 			for(int  i = 0;i< totalEdges; i++){
-				String lines = graphFile.readLine(); 
-				String [] lineSeperator = lines.split(" ", 3);
+				String line = graphFile.readLine(); 
+				String [] lineSeperator = line.split(" ");
 
+				int metroid1 = lines[0];
+
+				int metroid = lines[1];
+				int distance = lines[2];
+				
 			}
 		}
 		}
 
-		
-
-    // while ((line = graphFile.readLine()) != null) {
-	// 		String flag = "$";
-
-
-
-	// 		if (st.countTokens() != 3 	){
-	// 	 	 throw new IOException("This is an incorrect input for the line: " + line);
-	// 	 }
-	// 		if( st.countTokens() == 2){
-	// 			StringTokenizer st = new StringTokenizer(line);
-	// 			Integer id = new Integer(st.nextToken());
-	// 			String metroName = st.nextToken();
-	// 			Vertex<Integer>  metroid = stations.get(id);
-	// 			Vertex<String>  nameid  = stations.get(metroName);
-	// 			}
-	// 		if(flag == st.nextToken()){
-	// 			StringTokenizer dt = new StringTokenizer(line);
-	// 			Integer startid= new Integer(dt.nextToken());
-	// 			Integer endid = new Integer (dt.nextToken());
-	// 			Integer distance = new Integer(st.nextToken());
-	// 			Vertex<String> distance = vertices.get(startid);
-	// 		}
-    //   if (metroid == null) {
-    //     // Source vertex not in graph -- insert
-    //     metroid = sGraph.insertVertex(id);
-    //     vertices.put(id, metroid);}
-	// 		}
-
 
 
 }}}
+}
