@@ -32,7 +32,7 @@ public class ParisMetro {
 		BufferedReader graphFile = new BufferedReader(new FileReader(fileName));
 		String flag = "$";		
 		if((line = graphFile.readLine()) != null){
-				// 	 	 throw new IOException("This is an incorrect input for the line: " + line);
+			throw new IOException("This is an incorrect input for the line: " + line);
 
 		}
 
