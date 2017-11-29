@@ -18,22 +18,23 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 public class ParisMetro {
-	Graph<stations, Integer> parisMetroGraph;
+	// Graph<stations, Integer> parisMetroGraph;
 
-	public ParisGraph(String fileName) throws Exception, IOException {
-		
+
+
+	public void readMetro(String fileName) throws Exception, IOException {
 		read(fileName);
-		parisMetroGraph = new Graph(stations,Integer);
+		// parisMetroGraph = new Graph(stationList,Integer);
 	}
 
 	public static void read(String fileName) throws Exception, IOException {
 	
-		
-		BufferedReader graphFile = new BufferedReader(new FileReader(fileName));
+		BufferedReader graphFile = new Buffered1Reader(new FileReader(fileName));
 		String flag = "$";		
 		
-	ArrayList<String> stations = new ArrayList(String);
-	ArrayList<Integer,Integer> distances = new ArrayList(Integer,Integer);
+		// ArrayList<String> stationList = new ArrayList(String);
+		
+		// ArrayList<stationList,Integer> distances = new ArrayList(Integer,Integer);
 
 		if((line = graphFile.readLine()) != null){
 			throw new IOException("This is an incorrect input for the line: " + line);
@@ -49,18 +50,19 @@ public class ParisMetro {
 
 		/* This is the second line we have to read  */
 
-		 for(int i = 1; i< totalVertices; i++){
+		 for(int i = 0; i< totalVertices; i++){
 			int metroID = Integer.parseInt(lines[0]);
 			String stationName = lines[1];
 
-			stations.add(i,stationName);
+			stationList.add(i,stationName);
+
 		}	
 		line = graphFile.readLine();
-		if( lineSeperator[0] = flag)
-		{
+	
 			for(int  i = 0;i< totalEdges; i++){
-				String line = graphFile.readLine(); 
-				String [] lineSeperator = line.split(" ");
+
+				String Edges = graphFile.readLine(); 
+				String [] listofEdgesStrings = line.split(" ");
 
 				int metroid1 = lines[0];
 
@@ -69,9 +71,14 @@ public class ParisMetro {
 				
 			}
 		}
+
+
+		public static void main(String[] args) {
+			readMetro[args[0]];
+			
 		}
 
+}	
 
 
-}}}
-}
+
