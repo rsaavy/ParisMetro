@@ -48,22 +48,30 @@ public class ParisMetro {
 		String line =  reader.readLine();
 		String [] lines = line.split(" ");
 		int totalVertices = Integer.parseInt(lines[0]);
-		System.out.println("The total number of Vertices " + totalVertices);
+			System.out.println("The total number of Vertices " + totalVertices);
 		int totalEdges = Integer.parseInt(lines[1] );
 			System.out.println("The total number of Edges " + totalEdges);
-	} catch (NumberFormatException e) {
-			System.out.println("FUCKING PROBLEM");
-		}
+		}catch (NumberFormatException e) {System.out.println("FUCKING PROBLEM");}
+		finally {
+			reader.closer();
+		}			
+		
+			for(int i; i< totalVertices; i++){
+				String line = reader.readLine();
+				String [] lines = line.split(" ",2);
+
+				int metroID = Integer.parseInt(lines[0]);
+				String stationName = lines[1];
+	
+				System.out.println(stationName + metroID);
+			}
+			lines = reader.readFile();
+
+			// for( int i; i<totalEdges;i++){
+			// 	int id1 = Integer
+			// }
 	}
-		/* This is the second line we have to read  */
-
-		//  for(int i = 0; i< totalVertices; i++){
-		// 	int metroID = Integer.parseInt(lines[0]);
-		// 	String stationName = lines[1];
-
-		// 	stationList.add(i,stationName);
-
-		// }
+	
 		// line = graphFile.readLine();
 
 		// 	for(int  i = 0;i< totalEdges; i++){
