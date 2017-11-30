@@ -28,12 +28,12 @@ public class ParisMetro {
 	}
 
 	public static void read(String fileName) throws Exception, IOException {
-	
+
 		BufferedReader graphFile = new Buffered1Reader(new FileReader(fileName));
-		String flag = "$";		
-		
+		String flag = "$";
+
 		// ArrayList<String> stationList = new ArrayList(String);
-		
+
 		// ArrayList<stationList,Integer> distances = new ArrayList(Integer,Integer);
 
 		if((line = graphFile.readLine()) != null){
@@ -56,29 +56,26 @@ public class ParisMetro {
 
 			stationList.add(i,stationName);
 
-		}	
+		}
 		line = graphFile.readLine();
-	
+
 			for(int  i = 0;i< totalEdges; i++){
 
-				String Edges = graphFile.readLine(); 
+				String Edges = graphFile.readLine();
 				String [] listofEdgesStrings = line.split(" ");
 
 				int metroid1 = lines[0];
 
 				int metroid = lines[1];
 				int distance = lines[2];
-				
+
 			}
 		}
 
 
 		public static void main(String[] args) {
 			readMetro[args[0]];
-			
+
 		}
 
-}	
-
-
-
+}
