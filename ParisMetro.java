@@ -3,6 +3,11 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.StringTokenizer;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
 
 import net.datastructures.AdjacencyMapGraph;
 //import net.datastructures.Dijkstra;
@@ -19,14 +24,15 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+
 public class ParisMetro {
-	// Graph<stations, Integer> parisMetroGraph;
+	// WeightedGraph<E> parisMetroGraph;
 
 
 
 	public static void readMetro(String fileName) throws Exception, IOException {
 		read(fileName);
-		// parisMetroGraph = new Graph(stationList,Integer);
+		// parisMetroGraph = new WeightedGraph();
 	}
 
 	public static void read(String fileName) throws Exception, IOException {
@@ -34,7 +40,7 @@ public class ParisMetro {
 		BufferedReader reader = new BufferedReader( new InputStreamReader( new FileInputStream(fileName),"UTF-8"));
 		String flag = "$";
 
-		// ArrayList<String> stationList = new ArrayList(String);		
+		ArrayList<String> stationList = new ArrayList();		
 
 		// ArrayList<stationList,Integer> distances = new ArrayList(Integer,Integer);
 
@@ -45,30 +51,45 @@ public class ParisMetro {
 
 		/* This is the first line that we need to read.  */
 		try{
+			
 		String line =  reader.readLine();
 		String [] lines = line.split(" ");
 		int totalVertices = Integer.parseInt(lines[0]);
 			System.out.println("The total number of Vertices " + totalVertices);
-		int totalEdges = Integer.parseInt(lines[1] );
+		int 	totalEdges = Integer.parseInt(lines[1] );
 			System.out.println("The total number of Edges " + totalEdges);
+			while( line != null ){
+				line = reader.readLine();
+				lines =line.split(" ",2);
+				System.out.println(" ID: " + lines[0] + " Name: " + lines[1]);
+
+				// if( (line=reader.readLine()) == "$")
+				// 	lines = line.split(" ",3);
+				// 	System.out.println(" ID1: " + lines[0] + " ID2: " + lines[1] + " Weight: " + lines[2] );
+				}
+		
+		
 		}catch (NumberFormatException e) {System.out.println("FUCKING PROBLEM");}
 		finally {
-			reader.closer();
-		}			
-		
-			for(int i; i< totalVertices; i++){
-				String line = reader.readLine();
-				String [] lines = line.split(" ",2);
-
-				int metroID = Integer.parseInt(lines[0]);
-				String stationName = lines[1];
+			reader.close();
+		}		
 	
-				System.out.println(stationName + metroID);
-			}
-			lines = reader.readFile();
+
+			// for(int i; i < totalVertices; i++){
+			// 	String line = reader.readLine();
+			// 	String [] lines = line.split(" ",2);
+			// 	int metroID = Integer.parseInt(lines[0]);
+			// 	String stationName = lines[1];
+				
+			// 	System.out.println(stationName + metroID);
+				
+			// 	stationList.add(i,metroID);
+	
+			// }
+			// lines = reader.readFile();
 
 			// for( int i; i<totalEdges;i++){
-			// 	int id1 = Integer
+			// 	 insertEdge(vertex1,vertex2,weight);
 			// }
 	}
 	
