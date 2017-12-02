@@ -27,11 +27,12 @@ import java.util.Iterator;
 
 public  class ParisMetro {
 
-	WeightedGraph<Integer> parisMetroGraph = new WeightedGraph<Integer> ();
-
+	static WeightedGraph<Integer> parisMetroGraph = new WeightedGraph<Integer> ();
+	
 
 	public static void readMetro(String fileName) throws Exception, IOException {
 		read(fileName);
+	
 	}
 
 	public static void read(String fileName) throws Exception, IOException {
@@ -39,7 +40,10 @@ public  class ParisMetro {
 		BufferedReader reader = new BufferedReader( new InputStreamReader( new FileInputStream(fileName),"UTF-8"));
 		String flag = "$";
 
-		ArrayList<String> stationList = new ArrayList<String>();				
+		ArrayList<String> stationList = new ArrayList<String>();		
+
+		// WeightedGraph<Integer> parisMetroGraph = new WeightedGraph<Integer> ();
+		
 
 		// if((line = graphFile.readLine()) != null){
 		// 	throw new IOException("This is an incorrect input for the line: " + line);
@@ -57,22 +61,41 @@ public  class ParisMetro {
 			System.out.println("The total number of Edges " + totalEdges);
 			
 			line = reader.readLine();
-			lines =line.split(" ",2);
+			lines = line.split(" ",2);
 			while( !line.equals("$") ){
 				System.out.println(" ID: " + lines[0] + " Name: " + lines[1]);
 				line = reader.readLine();
 				lines =line.split(" ",2);
+			//  instead of just printing every ID, and Name. I want to add it an array list called StationList. 	
+			// Eventually i will doo the same with the Station 1 to Station 2 , and the distance(weight) in seconds	
+				
+				
+//				stationList.add(lines[1]);
+//				
+//				for(int i =0; i < totalEdges;i++){
+//					line = reader.readLine();
+//					lines = line.split(" ",3);
+//					Integer startFrom = Integer.parseInt(lines[0]);
+//					Integer endAt = Integer.parseInt(lines[1]);
+//					Integer time = Integer.parseInt(lines[2]);
+//					parisMetroGraph.insertEdge(startFrom,endAt,time);
+//				}
+//				// if( (line=reader.readLine()) == "$")
+//				// 	lines = line.split(" ",3);
+//				// 	System.out.println(" ID1: " + lines[0] + " ID2: " + lines[1] + " Weight: " + lines[2] );
+//				}
+//			for(String s:stationList){
+//				System.out.println(s);
 			}
 			
 			line = reader.readLine();
 			while(line != null) {
-			 	lines = line.split(" ",3);
+				lines = line.split(" ",3);
 			 	System.out.println(" ID1: " + lines[0] + " ID2: " + lines[1] + " Weight: " + lines[2] );
 			 	line = reader.readLine();
 			}
 		
 		} catch (NumberFormatException e) {System.out.println("FUCKING PROBLEM");}
-		
 		finally {
 			reader.close();
 		}		
