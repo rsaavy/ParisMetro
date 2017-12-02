@@ -40,7 +40,7 @@ public class ParisMetro {
 		BufferedReader reader = new BufferedReader( new InputStreamReader( new FileInputStream(fileName),"UTF-8"));
 		String flag = "$";
 
-		ArrayList<String> stationList = new ArrayList();		
+		ArrayList<String> stationList = new ArrayList<String>();		
 
 		// ArrayList<stationList,Integer> distances = new ArrayList(Integer,Integer);
 
