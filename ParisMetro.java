@@ -27,8 +27,8 @@ import java.util.Iterator;
 
 public  class ParisMetro {
 
-	WeightedGraph<Integer> parisMetroGraph = new WeightedGraph<Integer> ();
-
+	static WeightedGraph<Integer> parisMetroGraph = new WeightedGraph<Integer> ();
+	
 
 	public static void readMetro(String fileName) throws Exception, IOException {
 		read(fileName);
@@ -42,6 +42,7 @@ public  class ParisMetro {
 
 		ArrayList<String> stationList = new ArrayList<String>();		
 
+		// WeightedGraph<Integer> parisMetroGraph = new WeightedGraph<Integer> ();
 		
 
 		// if((line = graphFile.readLine()) != null){
@@ -64,13 +65,17 @@ public  class ParisMetro {
 				// System.out.println(" ID: " + lines[0] + " Name: " + lines[1]);
 			//  instead of just printing every ID, and Name. I want to add it an array list called StationList. 	
 			// Eventually i will doo the same with the Station 1 to Station 2 , and the distance(weight) in seconds	
-				if( line == "$"){
-					line = reader.readline();
-					lines = line.split(" ",3);
-					parisMetroGraph.insertEdge(lines[0],lines[1],lines[2]);
-				}
+				
 				stationList.add(lines[1]);
 				
+				for(int i =0; i < totalEdges;i++){
+					line = reader.readline();
+					lines = line.split(" ",3);
+					Integer startFrom = Integer.parseInt(lines[0]);
+					Integer endAt = Integer.parseInt(lines[1]);
+					Integer time = Integer.parseInt(lines[2]);
+					parisMetroGraph.insertEdge(startFrom,endAt,time);
+				}
 				// if( (line=reader.readLine()) == "$")
 				// 	lines = line.split(" ",3);
 				// 	System.out.println(" ID1: " + lines[0] + " ID2: " + lines[1] + " Weight: " + lines[2] );
