@@ -62,7 +62,9 @@ public class ParisMetro {
 				line = reader.readLine();
 				lines =line.split(" ",2);
 				System.out.println(" ID: " + lines[0] + " Name: " + lines[1]);
-
+			//  instead of just printing every ID, and Name. I want to add it an array list called StationList. 	
+			// Eventually i will doo the same with the Station 1 to Station 2 , and the distance(weight) in seconds	
+				stationList.add(lines[1]);
 				// if( (line=reader.readLine()) == "$")
 				// 	lines = line.split(" ",3);
 				// 	System.out.println(" ID1: " + lines[0] + " ID2: " + lines[1] + " Weight: " + lines[2] );
