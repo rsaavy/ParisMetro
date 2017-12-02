@@ -10,7 +10,6 @@ import java.io.*;
 
 
 import net.datastructures.AdjacencyMapGraph;
-//import net.datastructures.Dijkstra;
 import net.datastructures.Edge;
 import net.datastructures.Graph;
 import net.datastructures.GraphAlgorithms;
@@ -43,7 +42,7 @@ public  class ParisMetro {
 
 		ArrayList<String> stationList = new ArrayList<String>();		
 
-		ArrayList<Edges> distances = new ArrayList<Edges>();
+		
 
 		// if((line = graphFile.readLine()) != null){
 		// 	throw new IOException("This is an incorrect input for the line: " + line);
@@ -68,7 +67,7 @@ public  class ParisMetro {
 				if( line == "$"){
 					line = reader.readline();
 					lines = line.split(" ",3);
-					distances.add(lines[0],lines[1],lines[2]);
+					parisMetroGraph.insertEdge(lines[0],lines[1],lines[2]);
 				}
 				stationList.add(lines[1]);
 				
