@@ -50,27 +50,33 @@ public class ParisMetro {
 		// }
 
 		/* This is the first line that we need to read.  */
-		try{
+		try {
 			
-		String line =  reader.readLine();
-		String [] lines = line.split(" ");
-		int totalVertices = Integer.parseInt(lines[0]);
+			String line =  reader.readLine();
+			String [] lines = line.split(" ");
+			int totalVertices = Integer.parseInt(lines[0]);
 			System.out.println("The total number of Vertices " + totalVertices);
-		int 	totalEdges = Integer.parseInt(lines[1] );
+			int totalEdges = Integer.parseInt(lines[1] );
 			System.out.println("The total number of Edges " + totalEdges);
-			while( line != null ){
+			
+			line = reader.readLine();
+			lines =line.split(" ",2);
+			while( !line.equals("$") ){
+				System.out.println(" ID: " + lines[0] + " Name: " + lines[1]);
 				line = reader.readLine();
 				lines =line.split(" ",2);
-				System.out.println(" ID: " + lines[0] + " Name: " + lines[1]);
-
-				// if( (line=reader.readLine()) == "$")
-				// 	lines = line.split(" ",3);
-				// 	System.out.println(" ID1: " + lines[0] + " ID2: " + lines[1] + " Weight: " + lines[2] );
-				}
+			}
+			
+			line = reader.readLine();
+			while(line != null) {
+			 	lines = line.split(" ",3);
+			 	System.out.println(" ID1: " + lines[0] + " ID2: " + lines[1] + " Weight: " + lines[2] );
+			 	line = reader.readLine();
+			}
 		
+		}	catch (NumberFormatException e) {System.out.println("FUCKING PROBLEM");}
 		
-		}catch (NumberFormatException e) {System.out.println("FUCKING PROBLEM");}
-		finally {
+		finally	{
 			reader.close();
 		}		
 	
@@ -110,8 +116,7 @@ public class ParisMetro {
 
 
 		public static void main(String[] args) throws Exception,IOException {
-			readMetro("metro.txt");
-
+			readMetro("C:/Users/Quang-Tri/Documents/Projects/metro/ParisMetro/metro.txt");
 		}
 
 }
