@@ -17,8 +17,9 @@ import net.datastructures.GraphAlgorithms;
 import net.datastructures.Map;
 import net.datastructures.Vertex;
 import net.datastructures.Entry;
-import net.datastructures.ArrayList;
 
+
+import java.util.ArrayList;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.Hashtable;
