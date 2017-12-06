@@ -1,4 +1,4 @@
-import java.io.BufferedReader;
+	import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -124,7 +124,7 @@ public class ParisMetro{
         ParisMetro metro = new ParisMetro();
         try{
             metro.metroGraph = ParisMetro.readMetro("metro.txt", metro.allStations);
-            metro.sameLine(39);
+            metro.sameLine(Integer.parseInt(args[0]));
             for(int i = 0 ; i < 375; i++){
                 if( metro.sameStations.containsKey(i)){
                     System.out.println(metro.allStations.get(i));
