@@ -1,4 +1,5 @@
-	import java.io.BufferedReader;
+
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,11 +8,11 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.HashMap;
-import net.datastructures.Edge;
 import net.datastructures.Graph;
 import net.datastructures.GraphAlgorithms;
 import net.datastructures.Map;
 import net.datastructures.Vertex;
+import net.datastructures.Edge;
 import net.datastructures.HeapPriorityQueue;
 import net.datastructures.AdjacencyMapGraph;
 import net.datastructures.AdaptablePriorityQueue;
@@ -20,20 +21,16 @@ import net.datastructures.Entry;
 
 
 public class ParisMetro{
-    public AdjacencyMapGraph<Integer,Integer> metroGraph;
-    public ArrayList<String> allStations;
-    public HashMap<Integer, Boolean> brokenStations;
+    public static AdjacencyMapGraph<Integer,Integer> metroGraph = new AdjacencyMapGraph<Integer,Integer>(true);
+    public static HashMap<Integer, String> allStations = new HashMap<Integer, String>();
+    public static HashMap<Integer, Vertex<Integer>> allVertices = new HashMap<Integer, Vertex<Integer>>();
+    public static HashMap<Integer, Boolean> brokenStations = new HashMap<Integer, Boolean>();
     private static final int walkingTime = 90;
 
     public ParisMetro(){
-        metroGraph = new AdjacencyMapGraph<Integer,Integer>(true);
-        allStations = new ArrayList<String>();
-        brokenStations = new HashMap<Integer, Boolean>();
     }
 
-    public static AdjacencyMapGraph readMetro(String fileName, ArrayList<String> stations) throws IOException{
-        AdjacencyMapGraph<Integer,Integer> wGraph = new AdjacencyMapGraph<Integer,Integer>(true);
-        HashMap<Integer, Vertex> hVertices = new HashMap<>();
+    public static void readMetro(String fileName) throws IOException{
         BufferedReader bufferedRead = new BufferedReader(new FileReader(fileName));
         String line;
         String[] data;
@@ -43,31 +40,29 @@ public class ParisMetro{
         while( !line.startsWith("$") ) {
             data = line.split(" ", 2);
             int stationID = Integer.parseInt(data[0]);
-            stations.add( stationID, data[1] );
-            Vertex<Integer> newStation = wGraph.insertVertex( stationID );
-            hVertices.put( stationID, newStation );
+            Vertex<Integer> newStation = metroGraph.insertVertex( stationID );
+            allStations.put( stationID, data[1] );
+            allVertices.put( stationID, newStation );
             line = bufferedRead.readLine().trim();
         }
 
         line = bufferedRead.readLine();
         while( line != null ) {
             data = line.split(" ", 3);
-            Vertex<Integer> vertexFrom = hVertices.get( Integer.parseInt(data[0]) );
-            Vertex<Integer> vertexTo = hVertices.get( Integer.parseInt(data[1]) );
+            Vertex<Integer> vertexFrom = allVertices.get( Integer.parseInt(data[0]) );
+            Vertex<Integer> vertexTo = allVertices.get( Integer.parseInt(data[1]) );
             int weight = Integer.parseInt(data[2]);
-            wGraph.insertEdge( vertexFrom, vertexTo, weight);
+            metroGraph.insertEdge( vertexFrom, vertexTo, weight);
             line = bufferedRead.readLine();
         }
         bufferedRead.close();
-
-        return wGraph;
     }
 
-    public void setBrokenLine( int stationID ){
+    public static void setBrokenLine( int stationID ){
         brokenStations = sameLine( stationID );
     }
 
-    public HashMap<Integer, Boolean> sameLine( int stationID ){
+    public static HashMap<Integer, Boolean> sameLine( int stationID ){
         Vertex<Integer> startStation = getVertex( stationID );
         HashMap<Integer, Boolean> sameLineMap = new HashMap<>();
         stationsOnSameLine( sameLineMap, startStation );
@@ -75,7 +70,7 @@ public class ParisMetro{
     }
 
     // Copied the DFS code From my completed lab and modified it for this assignment
-    private void stationsOnSameLine( HashMap<Integer, Boolean> sameLineMap, Vertex<Integer> station ) {
+    private static void stationsOnSameLine( HashMap<Integer, Boolean> sameLineMap, Vertex<Integer> station ) {
 
         if( station == null || sameLineMap.containsKey( station.getElement() ) ){
             return;
@@ -97,51 +92,40 @@ public class ParisMetro{
         return;
     }
 
-
-    // From Lab net library
-	protected Vertex<Integer> getVertex(int vert) {
-        // Go through vertex list to find vertex -- why is this not a map
-        // I agree this should be a map but i'll fix it later cuz im tired
-		for (Vertex<Integer> vs : metroGraph.vertices()) {
-			if (vs.getElement().equals(vert)) {
-				return vs;
-			}
-        }
-        return null;
+	private static Vertex<Integer> getVertex(int vert) {
+		return allVertices.get( vert );
     }
     
-    public ArrayList<Integer> shortestPath( int stationFrom, int stationTo ) {
+    public static void shortestPath( int stationFrom, int stationTo ) {
         ArrayList<Integer> stationsPath = new ArrayList<>();
+        HashMap<Vertex<Integer>, Integer> stationWeights = new HashMap<>();
         HashMap<Integer, Integer> shortestPathsMap;
         Vertex<Integer> start = getVertex(stationFrom);
         Vertex<Integer> end = getVertex(stationTo);
         if( start == null || end == null ){
             System.out.println("Station does not exist");
-            return stationsPath;
         }
         try{
-            shortestPathsMap = djikstraImplementation(start, end);
+            shortestPathsMap = shortestPathAlg(stationWeights, start, end);
             Integer stationID = stationTo;
             stationsPath.add(0, stationID);
             while( (stationID = shortestPathsMap.get(stationID)) != null ) {
                 stationsPath.add(0, stationID);
             }
+            System.out.println( stationWeights.get( getVertex(stationTo) ) );
+            printStations( stationsPath );
         }
         catch(IllegalArgumentException E){
             System.out.println("ILLEGAL ARGUMENT EXCEPTION");
         }
-
-        return stationsPath;
     }
 
     //This method is sponsored by GraphAlgorithms.java Lab 10
-    private HashMap<Integer,Integer> djikstraImplementation( Vertex<Integer> start, Vertex<Integer> end) {
-        //Taken from GraphAlgorithms class, this priority queue compares using narutal ordering of keys
+    private static HashMap<Integer,Integer> shortestPathAlg( 
+                    HashMap<Vertex<Integer>, Integer> stationWeights, Vertex<Integer> start, Vertex<Integer> end) {
+        //Taken from GraphAlgorithms class, this priority queue compares using natural ordering of keys
         // in this case the keys are an integer value of the current distance to the station
         AdaptablePriorityQueue<Integer, Vertex<Integer>> stationsToVisit = new HeapAdaptablePriorityQueue<>();
-
-        //Weight hashmap used to get the current path weight associated to a vertex
-        HashMap<Vertex<Integer>, Integer> stationWeights = new HashMap<>();
 
         //Entries hashmap used for replacing keys in the Priority queue
         HashMap<Vertex<Integer>, Entry<Integer,Vertex<Integer>>> stationEntries = new HashMap<>();
@@ -185,6 +169,7 @@ public class ParisMetro{
                 oppositeStation = metroGraph.opposite(currVertex, line);
                 if( !cloud.containsKey(oppositeStation) &&
                      !brokenStations.containsKey( oppositeStation.getElement() ) ) {
+
                     //Edge relaxation on each visitable station 
                     int newWeight;
                     if( line.getElement() == -1 ){ // replace -1 with walking time
@@ -205,7 +190,6 @@ public class ParisMetro{
                     }
                 }
             }
-            stationWeights.remove(currVertex);
             stationEntries.remove(currVertex);
         }
         return shortestPathsMap;
@@ -219,31 +203,25 @@ public class ParisMetro{
         }
     }
     
-    public static void main(String[] args){
-
-        ParisMetro metro = new ParisMetro();
+    public static void main(String[] args){ 
         try{
-            metro.metroGraph = ParisMetro.readMetro("metro.txt", metro.allStations);
-            
+            ParisMetro.readMetro("metro.txt");
             if( args.length == 1 ) {
                 int stationID = Integer.parseInt( args[0] );
-                ArrayList<Integer> sameLine = new ArrayList<Integer>( 
-                                            metro.sameLine( stationID ).keySet() );
+                ArrayList<Integer> sameLine = new ArrayList<Integer>( ParisMetro.sameLine( stationID ).keySet() );
                 printStations( sameLine );
             }
             else if( args.length == 2 ) {
                 int stationFrom = Integer.parseInt( args[0] );
                 int stationTo = Integer.parseInt( args[1] );
-                ArrayList<Integer> shortestPath = metro.shortestPath( stationFrom, stationTo );
-                printStations( shortestPath );
+                ParisMetro.shortestPath( stationFrom, stationTo );
             }
             else if( args.length == 3 ) {
                 int stationFrom = Integer.parseInt( args[0] );
                 int stationTo = Integer.parseInt( args[1] );
                 int stationBroken = Integer.parseInt( args[2] );
-                metro.setBrokenLine( stationBroken );
-                ArrayList<Integer> shortestPath = metro.shortestPath( stationFrom, stationTo );
-                printStations( shortestPath );
+                ParisMetro.setBrokenLine( stationBroken );
+                ParisMetro.shortestPath( stationFrom, stationTo );
             }
         }
         catch(IOException e){
@@ -252,6 +230,6 @@ public class ParisMetro{
         catch(Exception e){
             System.out.println("EXCEPTION");
         }
-                
+                        
     }
 }
