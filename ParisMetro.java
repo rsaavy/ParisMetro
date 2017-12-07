@@ -226,8 +226,9 @@ public class ParisMetro{
             metro.metroGraph = ParisMetro.readMetro("metro.txt", metro.allStations);
             
             if( args.length == 1 ) {
+                int stationID = Integer.parseInt( args[0] );
                 ArrayList<Integer> sameLine = new ArrayList<Integer>( 
-                                            metro.sameLine( Integer.parseInt(args[0]) ).keySet() );
+                                            metro.sameLine( stationID ).keySet() );
                 printStations( sameLine );
             }
             else if( args.length == 2 ) {
