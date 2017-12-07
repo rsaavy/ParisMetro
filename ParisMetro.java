@@ -206,20 +206,25 @@ public class ParisMetro{
     public static void main(String[] args){ 
         try{
             ParisMetro.readMetro("metro.txt");
+            System.out.println("Input: ");
             if( args.length == 1 ) {
                 int stationID = Integer.parseInt( args[0] );
+                System.out.println("N1 = " + stationID);
+                System.out.println("Output:");
                 ArrayList<Integer> sameLine = new ArrayList<Integer>( ParisMetro.sameLine( stationID ).keySet() );
                 printStations( sameLine );
             }
             else if( args.length == 2 ) {
                 int stationFrom = Integer.parseInt( args[0] );
                 int stationTo = Integer.parseInt( args[1] );
+                System.out.println("N1 = " + stationFrom + "N2 = " + stationTo);
                 ParisMetro.shortestPath( stationFrom, stationTo );
             }
-            else if( args.length == 3 ) {
+            else if( args.length == 3 ) {                
                 int stationFrom = Integer.parseInt( args[0] );
                 int stationTo = Integer.parseInt( args[1] );
                 int stationBroken = Integer.parseInt( args[2] );
+                System.out.println("N1 = " + stationFrom + "N2 = " + stationTo + "N3 = " + stationBroken);
                 ParisMetro.setBrokenLine( stationBroken );
                 ParisMetro.shortestPath( stationFrom, stationTo );
             }
